@@ -1,3 +1,11 @@
+:root {
+  --primary: #006587;
+  --secondary: #4c626a;
+  --error: rgb(186, 27, 26);
+  --background: #fcfcff;
+  --on-primary: #fff;
+  --on-secondary: #fff;
+}
 *::-webkit-scrollbar {
   display: none;
 }

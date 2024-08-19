@@ -5,13 +5,6 @@ import styles from './page.module.css'
 import { Hct } from '@material/material-color-utilities'
 import * as ort from 'onnxruntime-web'
 
-function genHCT () {
-  const hueDegrees = Math.random() * 360
-  const c = Math.random() * 100
-  const l = Math.random() * 100
-  return [hueDegrees, c, l]
-}
-
 function genColor (hct: [number, number, number]) {
   //   const hct = genHCT()
   const color = Hct.from(hct[0], hct[1], hct[2])
@@ -117,7 +110,7 @@ function Email ({ theme, content }: { content: emailType; theme: theme }) {
         <p>{content.subject}</p>
         <small>{content.summary.slice(0, 30)}...</small>
       </div>
-        <p style={{ flexGrow: 1 }}></p>
+      <p style={{ flexGrow: 1 }}></p>
       <div>
         <span
           style={{
@@ -162,14 +155,14 @@ function Email ({ theme, content }: { content: emailType; theme: theme }) {
 
 export default function Home () {
   const [theme, setTheme] = useState<theme>({
-    primary: 'blue',
+    primary: '#006587',
     onPrimary: 'white',
-    secondary: 'yellow',
-    onSecondary: 'black',
+    secondary: '#4c626a',
+    onSecondary: 'white',
     tertiary: 'green',
     onTertiary: 'black',
-    background: 'white',
-    error: 'red'
+    background: '#fcfcff',
+    error: 'rgb(186, 27, 26)'
   })
 
   return (
@@ -210,8 +203,31 @@ export default function Home () {
             setTheme(newT)
           }}
         >
-          Generate Colour Palette
+          Generate Colours
         </button>
+
+        <ul className={styles.pantone}>
+          <li
+            style={{ backgroundColor: theme.primary, color: theme.onPrimary }}
+          >
+            Primary 
+          </li>
+          <li
+            style={{
+              backgroundColor: theme.secondary,
+              color: theme.onSecondary
+            }}
+          >
+            Secondary
+          </li>
+          <li
+            style={{ backgroundColor: theme.tertiary, color: theme.onTertiary }}
+          >
+            Tertiary
+          </li>
+          <li style={{ backgroundColor: theme.background, border: "1px solid gray" }}>Background</li>
+          <li style={{ color: theme.error, border: `1px solid ${theme.error}` }}>Error</li>
+        </ul>
       </section>
 
       <section
