@@ -15,8 +15,15 @@
   box-sizing: border-box;
 }
 
-html, body {
-  padding:0;
-  margin:0;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: var(--background);
 }
 
+a, a:visited {
+  color: inherit;
+  text-decoration: none;
+}
