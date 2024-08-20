@@ -106,8 +106,8 @@ function Email ({ theme, content }: { content: emailType; theme: theme }) {
       }}
     >
       <div>
-        <h1>{content.from}</h1>
-        <p>{content.subject}</p>
+        <p>{content.from}</p>
+        <h1>{content.subject}</h1>
         <small>{content.summary.slice(0, 30)}...</small>
       </div>
       <p style={{ flexGrow: 1 }}></p>

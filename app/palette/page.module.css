@@ -123,11 +123,11 @@
 }
 
 .email h1 {
-  margin-top: 0.4em;
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
 
 .email p {
+  margin-top: 0.4em;
   font-size: 0.8rem;
 }
 

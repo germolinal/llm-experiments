@@ -1,17 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import styles from './page.module.css'
+import { Topbar } from './topbar'
 
 export const metadata: Metadata = {
   title: 'GenAI UX',
   description: '...'
-}
-
-function Topbar () {
-  return <nav className={styles.topbar}>
-    <a href="/" >Home</a>
-  </nav>
 }
 
 export default function RootLayout ({
@@ -22,9 +16,7 @@ export default function RootLayout ({
   return (
     <html lang='en'>
       <body className={styles.body}>
-        <Topbar />
-
-        {children}
+        <Topbar>{children}</Topbar>
       </body>
     </html>
   )
