@@ -1,9 +1,10 @@
 'use client'
+import { getChat } from '@/utils/llm' // I need this to run on backend
 import styles from '../page.module.css'
 import { useEffect, useState } from 'react'
-import { sendMsg } from '@/utils/llm'
 import { useContext } from 'react'
 import { TopbarContext } from '../../topbar'
+import { Message } from '@/utils/types'
 const prompts = [
   'What colour is the sun?',
   '42 is the answer to life, the universe and everything. Why?',
@@ -53,7 +54,13 @@ export default function NoMessages ({ appendMsg }: { appendMsg: any }) {
             <li
               key={i}
               onClick={() => {
-                sendMsg(llm, p, appendMsg)
+                appendMsg({
+                  origin:"user",
+                  msg: p
+                })
+                getChat(llm, p, []).then((res: Message) => {
+                  appendMsg(res)
+                })
               }}
             >
               <span>{p}</span>

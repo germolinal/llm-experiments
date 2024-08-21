@@ -3,16 +3,18 @@
 import { useState } from 'react'
 import styles from '../page.module.css'
 
-import { Message } from '../page'
-import { sendMsg } from '@/utils/llm'
+import { Message } from '@/utils/types'
+import { getChat } from '@/utils/llm'
 
 import { useContext } from 'react'
 import { TopbarContext } from '../../topbar'
 
 export default function TextInput ({
-  appendMsg
+  appendMsg,
+  messages
 }: {
   appendMsg: (m: Message) => void
+  messages: Message[]
 }) {
   let { llm } = useContext(TopbarContext)
   const [msg, setMsg]: [string, any] = useState('')
@@ -29,7 +31,13 @@ export default function TextInput ({
     }
     let txt = msg.trim()
 
-    await sendMsg(llm, txt, appendMsg)
+    let history = [...messages]
+    appendMsg({
+      origin: 'user',
+      msg: txt
+    })
+    let res = await getChat(llm, txt, history)
+    appendMsg(res)
 
     clearMsg(e)
   }
@@ -40,7 +48,7 @@ export default function TextInput ({
     setMsg(txt)
     if (e.key === 'Enter') {
       send(e).then(r => {
-        console.log('done!')
+        
       })
     }
   }

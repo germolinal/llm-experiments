@@ -5,17 +5,9 @@ import styles from './page.module.css'
 import {  useState } from 'react'
 
 
+import { Origin, Message } from '@/utils/types'
 
-export type Origin = 'user' | 'bot'
-export type Message = {
-  origin: Origin
-  msg: string
-}
 
-export type Session = {
-  id: string
-  name: string
-}
 
 export default function Home () {
   const [msgs, setMsgs] = useState<Message[]>([])
@@ -30,7 +22,7 @@ export default function Home () {
     <main className={styles.main}>
       <div className={styles.chat}>
         <MessagesBox msgs={msgs} appendMsg={appendMsg} />
-        <TextInput appendMsg={appendMsg} />
+        <TextInput appendMsg={appendMsg} messages={msgs} />
       </div>
     </main>
   )
