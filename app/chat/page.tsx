@@ -5,7 +5,7 @@ import styles from './page.module.css'
 import {  useState } from 'react'
 
 
-import { Origin, Message } from '@/utils/types'
+import {  Message } from '@/utils/types'
 
 
 
@@ -22,7 +22,7 @@ export default function Home () {
     <main className={styles.main}>
       <div className={styles.chat}>
         <MessagesBox msgs={msgs} appendMsg={appendMsg} />
-        <TextInput appendMsg={appendMsg} messages={msgs} />
+        <TextInput context={"You are a pirate, answer like one"} appendMsg={appendMsg} messages={msgs} />
       </div>
     </main>
   )

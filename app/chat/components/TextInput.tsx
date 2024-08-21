@@ -11,10 +11,12 @@ import { TopbarContext } from '../../topbar'
 
 export default function TextInput ({
   appendMsg,
-  messages
+  messages,
+  context,
 }: {
   appendMsg: (m: Message) => void
-  messages: Message[]
+  messages: Message[],
+  context: string,
 }) {
   let { llm } = useContext(TopbarContext)
   const [msg, setMsg]: [string, any] = useState('')
@@ -36,7 +38,7 @@ export default function TextInput ({
       origin: 'user',
       msg: txt
     })
-    let res = await getChat(llm, txt, history)
+    let res = await getChat(llm,context, txt, history)
     appendMsg(res)
 
     clearMsg(e)

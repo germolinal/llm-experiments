@@ -30,7 +30,7 @@ function getPrompts (n: number): string[] {
   return selected
 }
 
-export default function NoMessages ({ appendMsg }: { appendMsg: any }) {
+export default function NoMessages ({ appendMsg, context }: { appendMsg: any, context: string }) {
   const [randomPrompts, setPrompts] = useState<string[]>([])
   let { llm } = useContext(TopbarContext)
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function NoMessages ({ appendMsg }: { appendMsg: any }) {
                   origin:"user",
                   msg: p
                 })
-                getChat(llm, p, []).then((res: Message) => {
+                getChat(llm, context, p, []).then((res: Message) => {
                   appendMsg(res)
                 })
               }}
