@@ -24,8 +24,20 @@ export default function Home () {
     <div className={styles.projects}>
       <p>Conversational experiences</p>
       <div>
-        <Project title='Chat' description='Simple chat interface' link='chat' />
+        <Project title='Chat' description='Talk to a machine' link='chat' />
       </div>
+      
+
+      <p>Small applications</p>
+      <div>
+        <Project
+          title='Email app'
+          description='Improve email apps, without writing'
+          link='mailme'
+        />
+      </div>
+
+
       <p>Client-side AI</p>
       <div>
         <Project
@@ -33,8 +45,10 @@ export default function Home () {
           description='Demo of an on-device AI'
           link='palette'
         />
-
       </div>
+
+      
+
     </div>
   )
 }

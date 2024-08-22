@@ -1,7 +1,7 @@
 'use client'
 import styles from '../page.module.css'
 
-import { Message } from '../page'
+import { Message } from '@/utils/types'
 import NoMessages from './NoMessages'
 
 function UserMsg ({ msg }: { msg: string }) {
@@ -29,10 +29,12 @@ function UserMsg ({ msg }: { msg: string }) {
 
 export default function MessagesBox ({
   msgs,
-  appendMsg
+  appendMsg,
+  context
 }: {
   msgs: Message[]
   appendMsg: any
+  context: string
 }) {
   return (
     <div id='msgs' className={styles.msgs}>
@@ -44,7 +46,9 @@ export default function MessagesBox ({
             return <p key={i}>{m.msg}</p>
           }
         })}
-      {msgs.length === 0 && <NoMessages appendMsg={appendMsg} />}
+      {msgs.length === 0 && (
+        <NoMessages context={context} appendMsg={appendMsg} />
+      )}
     </div>
   )
 }
