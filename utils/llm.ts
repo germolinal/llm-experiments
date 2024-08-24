@@ -23,9 +23,9 @@ async function googleCompletion(llm: LLM, txt: string): Promise<string> {
 
 async function googleChat(llm: LLM, context: string, txt: string, history: Message[]): Promise<Message> {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    console.log(context)
     const model = genAI.getGenerativeModel({ model: llm, prompt: context });
     const chat = model.startChat({
+        
         history: history.map((msg: Message) => {
             return {
                 role: msg.origin === "user" ? msg.origin : "model",
