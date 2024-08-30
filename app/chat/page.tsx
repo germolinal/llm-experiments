@@ -21,7 +21,8 @@ export default function Home () {
         <textarea
           style={{
             width: '100%',
-            resize: 'none'
+            resize: 'none',
+            padding: "1em",
           }}
           id='context'
           placeholder={DEFAULT_CONTEXT}
