@@ -67,23 +67,24 @@
 }
 .email div {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: column;  
   padding-right: 1em;
+  width: 300px;
 }
 .email div span:last-child{
   font-size: 0.85em;
   opacity: 0.5;
   margin-top: 0.3em; 
+  width: 100%;
+  max-width: 100%;
 }
 
 .email > span:first-child {
   display: inline-block;
   width: 120px;
   min-width: 120px;
-  margin-right: 1em;
+  margin-right: 1em;  
 }
 .email > span:last-child {
-  opacity: 0.5;
-  /* margin-left: 1em; */
+  opacity: 0.5;  
 }

@@ -1,8 +1,10 @@
 'use client'
 import { useState } from 'react'
+import { getCompletion } from '@/utils/llm'
 import styles from './page.module.css'
-
+import { useContext } from 'react'
 import Composer from './composer'
+import { TopbarContext } from '../topbar'
 
 export type emailType = {
   from: string
@@ -35,6 +37,7 @@ function Email ({ email }: { email: emailType }) {
 }
 
 export default function Mailme () {
+  let { llm } = useContext(TopbarContext)
   const [composeMode, setComposeMode] = useState<boolean>(false)
   const [emails, setEmails] = useState<emailType[]>(defaultEmails)
 
@@ -47,8 +50,10 @@ export default function Mailme () {
       <Composer
         openModal={composeMode}
         closeModal={() => setComposeMode(false)}
-        appendEmail={(m: emailType) => {
-          m.actualSubject = 'This is what this email actually is about'
+        appendEmail={async (m: emailType) => {
+
+          m.actualSubject = await getCompletion(llm, "Your job is to read emails and replace their subjects by concise and direct sentences that clearly state the intent. For instance, changing subjects for sentences like \"Probably spam\", \"A SaaS company offering a sales product\" or \"Mike wants to discuss Some Company's project\". You will receive just the content of the email. Return only the suggested subject. Be reasonably sceptical and cinical of the intents of the sender.", m.content)
+          console.log(m.actualSubject)
           setEmails(prevEmails => [...prevEmails, m])
         }}
       />
@@ -56,8 +61,7 @@ export default function Mailme () {
         <span
           className={styles.composeButton}
           onClick={async () => {
-            let n = !composeMode
-            console.log(n)
+            let n = !composeMode            
             setComposeMode(n)
           }}
         >

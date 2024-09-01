@@ -4,7 +4,6 @@ import { Message } from "./types";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import { LLM, AI_platform, llm_providers } from "./ai_providers"
 
-
 function getPlatform(llm: LLM): AI_platform {
     const platform = llm_providers[llm]
     if (!platform) {
@@ -13,16 +12,16 @@ function getPlatform(llm: LLM): AI_platform {
     return platform
 }
 
-async function googleCompletion(llm: LLM, txt: string): Promise<string> {
+async function googleCompletion(llm: LLM, context: string, txt: string): Promise<string> {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    const model = genAI.getGenerativeModel({ model: llm });
+    const model = genAI.getGenerativeModel({ model: llm, systemInstruction: context });
     const res = await model.generateContent(txt)
     return res.response.text()
 }
 
 
 async function googleChat(llm: LLM, context: string, txt: string, history: Message[]): Promise<Message> {
-    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);    
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
     const model = genAI.getGenerativeModel({ model: llm, systemInstruction: context });
     const chat = model.startChat({
 
@@ -72,7 +71,7 @@ async function openAIChat(llm: LLM, context: string, txt: string, history: Messa
 export async function getChat(llm: LLM, context: string, txt: string, history: Message[]): Promise<Message> {
     const p = getPlatform(llm)
     switch (p) {
-        case "google":            
+        case "google":
             return googleChat(llm, context, txt, history)
         case "openai":
             return openAIChat(llm, context, txt, history)
@@ -81,11 +80,11 @@ export async function getChat(llm: LLM, context: string, txt: string, history: M
     return { msg: `llm ${llm} of '${p}' is not yet supported`, origin: "bot" }
 }
 
-export async function getCompletion(llm: LLM, txt: string): Promise<string> {
+export async function getCompletion(llm: LLM, context: string, txt: string): Promise<string> {
     const p = getPlatform(llm)
     switch (p) {
         case "google":
-            return googleCompletion(llm, txt)
+            return googleCompletion(llm, context, txt)
         case "openai":
             console.log("open ai!!!")
             break
