@@ -25,9 +25,9 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
-  background-color: rgb(230,230,230);
+  background-color: rgb(230, 230, 230);
   width: 170px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);  
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .project:hover {
@@ -53,8 +53,24 @@
   color: var(--on-primary);
   display: flex;
   text-align: center;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.topbar > * {
+  margin: 0 1em;
+}
+
+.topbar select {
+  background-color: transparent;
+  color: inherit;
+  border: 1px solid var(--on-primary);
+  border-radius: 0.6em;
+  padding: 0.3em 0.6em;
+}
+.topbar select option {
+  background-color: transparent;
+  color: inherit;
 }
 
 .body {
