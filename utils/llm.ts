@@ -1,8 +1,7 @@
 'use server'
 import OpenAI from "openai";
-import { Message, Origin } from "./types";
+import { Message } from "./types";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-
 import { LLM, AI_platform, llm_providers } from "./ai_providers"
 
 
@@ -21,9 +20,9 @@ async function googleCompletion(llm: LLM, txt: string): Promise<string> {
     return res.response.text()
 }
 
+
 async function googleChat(llm: LLM, context: string, txt: string, history: Message[]): Promise<Message> {
-    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    console.log(context)
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);    
     const model = genAI.getGenerativeModel({ model: llm, systemInstruction: context });
     const chat = model.startChat({
 
@@ -73,7 +72,7 @@ async function openAIChat(llm: LLM, context: string, txt: string, history: Messa
 export async function getChat(llm: LLM, context: string, txt: string, history: Message[]): Promise<Message> {
     const p = getPlatform(llm)
     switch (p) {
-        case "google":
+        case "google":            
             return googleChat(llm, context, txt, history)
         case "openai":
             return openAIChat(llm, context, txt, history)
