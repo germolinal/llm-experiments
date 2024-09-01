@@ -5,10 +5,11 @@
   justify-content: center;
 }
 
-.projects > p {
-  margin: 0;
+.projects > p:first-child {
   margin-top: 2em;
-  margin-bottom: 0.2em;
+}
+.projects > p {
+  margin: 0;  
 }
 
 .projects > div {
@@ -36,7 +37,6 @@
 
 .project span:first-child {
   font-weight: 600;
-  margin-right: 1em;
   margin-bottom: 0.3em;
 }
 .project span:last-child {
