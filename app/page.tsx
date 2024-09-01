@@ -10,7 +10,7 @@ function Project ({
   link: string
 }) {
   return (
-    <a href={link} style={{padding: "1em"}}>
+    <a href={link} style={{padding: "1em", paddingTop: "0"}}>
       <div className={styles.project}>
         <span>{title}</span>
         <span>{description}</span>
