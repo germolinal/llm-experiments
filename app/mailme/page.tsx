@@ -56,7 +56,6 @@ export default function Mailme () {
             'Your job is to read emails and replace their subjects by concise and direct sentences that clearly state the intent. For instance, changing subjects for sentences like "Probably spam", "A SaaS company offering a sales product" or "Mike wants to discuss Some Company\'s project". You will receive just the content of the email. Return only the suggested subject. Be reasonably sceptical and cinical of the intents of the sender.',
             m.content
           )
-          console.log(m.actualSubject)
           setEmails(prevEmails => [...prevEmails, m])
         }}
       />

@@ -12,14 +12,6 @@ function getPlatform(llm: LLM): AI_platform {
     return platform
 }
 
-async function googleCompletion(llm: LLM, context: string, txt: string): Promise<string> {
-    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    const model = genAI.getGenerativeModel({ model: llm, systemInstruction: context });
-    const res = await model.generateContent(txt)
-    return res.response.text()
-}
-
-
 async function googleChat(llm: LLM, context: string, txt: string, history: Message[]): Promise<Message> {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
     const model = genAI.getGenerativeModel({ model: llm, systemInstruction: context });
@@ -80,14 +72,28 @@ export async function getChat(llm: LLM, context: string, txt: string, history: M
     return { msg: `llm ${llm} of '${p}' is not yet supported`, origin: "bot" }
 }
 
+
+
+async function googleCompletion(llm: LLM, context: string, txt: string): Promise<string> {
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    const model = genAI.getGenerativeModel({ model: llm, systemInstruction: context });
+    const res = await model.generateContent(txt)
+    return res.response.text()
+}
+
+
+async function openAiCompletion(llm: LLM, context: string, txt: string): Promise<string> {
+    let msg = await openAIChat(llm, context, txt, [])
+    return msg.msg
+}
+
 export async function getCompletion(llm: LLM, context: string, txt: string): Promise<string> {
     const p = getPlatform(llm)
     switch (p) {
         case "google":
             return googleCompletion(llm, context, txt)
         case "openai":
-            console.log("open ai!!!")
-            break
+            return openAiCompletion(llm, context, txt)
     }
     return `llm ${llm} of '${p}' is not yet supported`
 }
