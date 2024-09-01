@@ -18,7 +18,7 @@ const defaultEmails: emailType[] = [
     from: 'Alice Bennett',
     subject: 'Quarterly Financial Review Meeting',
     content:
-      'Hi team, I would like to schedule a meeting to discuss our quarterly financial performance.'
+      'Hi team, I would like to schedule a meeting to discuss our quarterly financial performance.',    
   }
 ]
 
@@ -28,7 +28,7 @@ function Email ({ email }: { email: emailType }) {
       <span>{email.from}</span>
       <div>
         <span>{email.actualSubject ? email.actualSubject : email.subject}</span>
-        <span>{email.subject}</span>
+        <span>{email.actualSubject ? email.subject : ""}</span>
       </div>
 
       <span>{email.content.slice(0, 30)}...</span>
@@ -51,8 +51,11 @@ export default function Mailme () {
         openModal={composeMode}
         closeModal={() => setComposeMode(false)}
         appendEmail={async (m: emailType) => {
-
-          m.actualSubject = await getCompletion(llm, "Your job is to read emails and replace their subjects by concise and direct sentences that clearly state the intent. For instance, changing subjects for sentences like \"Probably spam\", \"A SaaS company offering a sales product\" or \"Mike wants to discuss Some Company's project\". You will receive just the content of the email. Return only the suggested subject. Be reasonably sceptical and cinical of the intents of the sender.", m.content)
+          m.actualSubject = await getCompletion(
+            llm,
+            'Your job is to read emails and replace their subjects by concise and direct sentences that clearly state the intent. For instance, changing subjects for sentences like "Probably spam", "A SaaS company offering a sales product" or "Mike wants to discuss Some Company\'s project". You will receive just the content of the email. Return only the suggested subject. Be reasonably sceptical and cinical of the intents of the sender.',
+            m.content
+          )
           console.log(m.actualSubject)
           setEmails(prevEmails => [...prevEmails, m])
         }}
@@ -61,7 +64,7 @@ export default function Mailme () {
         <span
           className={styles.composeButton}
           onClick={async () => {
-            let n = !composeMode            
+            let n = !composeMode
             setComposeMode(n)
           }}
         >
